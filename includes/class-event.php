@@ -16,6 +16,7 @@
                 add_action('manage_posts_custom_column', array($this ,'event_column_content'),10, 2);
                 add_action('wp_enqueue_scripts',array($this,'script_enqueue'),100);
             }
+            
             public function script_enqueue(){
                 wp_enqueue_script('custom-script', plugin_dir_url(dirname(__FILE__)).'assets/custom.js',array('jquery'),'1.0.0',TRUE);
                 wp_enqueue_script('lightbox-script', plugin_dir_url(dirname(__FILE__)).'assets/glightbox.min.js');
@@ -33,13 +34,17 @@
             }
             public function event_column_content($column, $post_id){
                 if($column=='shortcodes'){
-                $id = get_the_terms($post_id, 'events_category')?>
-                        <textarea style="resize: none;" rows="2" cols="20" readonly="readonly">[cm_event cat="<?php echo $id[0]->term_id; ?>"]</textarea>
-                    <?php
+                    $id = get_the_terms($post_id, 'events_category');?>
+                        <textarea style="resize: none;" rows="2" cols="20" readonly="readonly">
+                            [cm_event <?php echo (isset($id) && !empty($id))?"cat=".$id[0]->term_id:""; ?>]
+                        </textarea>
+                <?php
                 }
             }
             public function event_shortcode($atts){
-                require_once(plugin_dir_path(__FILE__).'shortcode-content.php');
+                ob_start();
+                include(plugin_dir_path(__FILE__).'shortcode-content.php');
+                return ob_get_clean();
             }
             public function create_event_post(){
                 require_once plugin_dir_path(__FILE__).'custom-post-type.php';

@@ -1,26 +1,33 @@
-<?php
-     $post_detail=get_the_terms($atts['cat'], 'events_category');
-     $atts = shortcode_atts( array(
-        'cat' => '',
-        'num_posts' => 4,
-    ), $atts, 'cm_event' );
-
-    $query_args = array(
-        'post_type' => 'events',
-        'posts_per_page' => $atts['num_posts'],
-        'order' => 'DESC',
-    );
+<?php 
+//  var_dump(get_field('schedule_date'));
     if ( ! empty( $atts['cat'] ) ) {
-        $query_args['tax_query'] = array(
-            'taxonomy' => $post_detail[0]->name,
+        $atts = shortcode_atts( array(
+            'cat' => '',
+            'num_posts' => 10,
+        ), $atts, 'cm_event' );
+        $query_args = array(
+            'post_type' => 'events',
+            'posts_per_page' => $atts['num_posts'],
+            'meta_key'=>'schedule_date',
+            'orderby'   => 'meta_value_num',
+            'order' => 'ASC',
+        );
+        $query_args['tax_query'] = array(array(
+            'taxonomy' =>'events_category',
             'field' => 'term_id',
-            'terms' => $post_detail[0]->term_id,
+            'terms' =>$atts['cat'],),
+        );
+    }else{
+        $query_args = array(
+            'post_type' => 'events',
+            'posts_per_page' =>5,
+            'order' => 'DESC',
+            'meta_key'=>'schedule_date',
+            'orderby'   => 'meta_value_num',
+            'order' => 'ASC',
         );
     }
-    
     $query = new WP_Query( $query_args);
-    
-    //ob_start();
     if ( $query->have_posts()) :
         echo '<div class="cm-listing">';
         while ( $query->have_posts() ) : $query->the_post();
@@ -38,13 +45,12 @@
             echo '<div class="cm-details ">';
             echo '<h3 class="cm-title">' . esc_html( $event_title ) . '</h3>';
             echo '<div class="cm-description">' . esc_html( $event_description ) . '</div>';
+            echo '<div class="cm-schedule-date">'.get_field('schedule_date').'</div>';
             echo '<div class="cm-action">Show Detail</div>';
             echo '</div>';
             echo '</div>';            
         endwhile;
         echo '</div>';
     endif;
-    //wp_reset_postdata();
-
-    //return ob_get_clean();
+    wp_reset_postdata();
 ?>
