@@ -12,7 +12,7 @@ if ( ! class_exists( 'Event' ) ) {
 			}
 			/***
 			 * Required Advanced Custom Field plugin
-             * Requires Date Field to be seet with field name schedule_date
+			 * Requires Date Field to be seet with field name schedule_date
 			 */
 			$this->plugin_name = 'event-plugin';
 			add_action( 'init', array( $this, 'create_event_post' ) );

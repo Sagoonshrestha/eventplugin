@@ -17,4 +17,4 @@
 defined( 'ABSPATH' ) || exit; // Exit if accessed directly
 define( 'PLUGIN_NAME_VERSION', '1.0.0' );
 
-require_once plugin_dir_path(__FILE__).'includes/class-event.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-event.php';
