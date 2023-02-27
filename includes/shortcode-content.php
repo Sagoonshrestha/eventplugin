@@ -21,7 +21,6 @@
         $query_args = array(
             'post_type' => 'events',
             'posts_per_page' =>5,
-            'order' => 'DESC',
             'meta_key'=>'schedule_date',
             'orderby'   => 'meta_value_num',
             'order' => 'ASC',
