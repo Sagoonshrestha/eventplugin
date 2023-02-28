@@ -9,6 +9,7 @@ Class EventTable{
     }
 
     public function __construct(){
+        //to add shortcode tag field in event post list.
         add_filter( 'manage_edit-events_columns', array( $this, 'event_column_head' ) );
         add_action( 'manage_posts_custom_column', array( $this, 'event_column_content' ), 10, 2 );
     }

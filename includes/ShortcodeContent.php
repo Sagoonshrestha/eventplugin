@@ -24,6 +24,9 @@ Class ShortcodeContent{
         wp_register_style('custom-style', CUSTOM_PLUGIN_ASSETS_URL.'css/custom.css');
         wp_enqueue_style('custom-style');
     }
+    /*create a date picker from advance custom field with id Schedule_date to arrange post according
+    to schedule date.    
+    */
     public function event_shortcode(){
         ob_start();
         $query_args = [
