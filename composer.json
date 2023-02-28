@@ -1,0 +1,13 @@
+{
+    "name": "codemanas/eventplugin",
+    "description": "This is New event plugin with psr-4 standard",
+    "type": "wordpress-plugins",
+    "license": "GPL-2",
+    "autoload": {
+        "psr-4": {
+            "Codemanas\\Eventplugin\\": "includes/"
+        }
+    },
+    "minimum-stability": "stable",
+    "require": {}
+}
