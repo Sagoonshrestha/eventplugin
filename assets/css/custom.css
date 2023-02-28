@@ -1,0 +1,11 @@
+.cm-action{
+    background-color: black;
+    color: white;
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    text-decoration: none;
+    width: 100px;
+    text-align: center;
+    margin:10px 0;
+}
